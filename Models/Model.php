@@ -17,8 +17,22 @@ class Model extends Database
 
     public function searchByID($table, $id) 
     {
-        $sql = "select * from ${table} where id = ${id} limit 1";
-        $query = $this->_query($sql)->fetch();
+        $sql = "select * from ${table} where id = '$id' limit 1";
+        $query = $this->_query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $query;
+    }
+
+    public function searchByUsername($table, $username) 
+    {
+        $sql = "select * from ${table} where username = '$username' limit 1";
+        $query = $this->_query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $query;
+    }
+
+    public function slideShow($table, $id) 
+    {
+        $sql = "select * from ${table} where products_id = '$id'";
+        $query = $this->_query($sql)->fetchAll();
         return $query;
     }
 

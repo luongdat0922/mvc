@@ -18,9 +18,9 @@ class LoginController extends Controller
     public function check()
     {
         if (isset($_POST['login'])) {
-            $username = $_POST['username'] ?? null;
-            $password = $_POST['password'] ?? null;
-            $remember = $_POST['remember'] ?? null;
+            $username = isset($_POST['username']) ? $_POST['username'] : null;
+            $password = isset($_POST['password']) ? $_POST['password'] : null;
+            $remember = isset($_POST['remember']) ? $_POST['remember'] : null;
             if (!empty($username) && !empty($password)) {
                 $account = $this->accountModel->processLogin($username, $password);
                 if ($account) {
