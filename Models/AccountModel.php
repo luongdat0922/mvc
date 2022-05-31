@@ -10,5 +10,9 @@ class AccountModel extends Model
     public function processLogin($username, $password) {
         return $this->checkLogin(self::TABLE, $username, $password);
     }
+
+    public function findByUsername($username) {
+        return $this->searchByUsername(self::TABLE, $username);
+    }
 }
 ?>
