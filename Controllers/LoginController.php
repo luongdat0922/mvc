@@ -34,6 +34,8 @@ class LoginController extends Controller
                         "username" => $_SESSION['username']
                     ]);
                 }
+            } else {
+                header('Location: index.php?controller=login&action=index');
             }
         }
     }

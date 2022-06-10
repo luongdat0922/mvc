@@ -10,7 +10,21 @@ class Model extends Database
     public function all($table, $select = ['*'], $limit) 
     {
         $columns = implode(",", $select);
-        $sql = "select ${columns} from ${table} limit ${limit}";
+        $sql = "select ${columns} from ${table} where status = false limit ${limit} ";
+        $query = $this->_query($sql)->fetchAll();
+        return $query;
+    }
+
+    public function page($table, $select = ['*'], $limit, $offset) 
+    {
+        $columns = implode(",", $select);
+        $sql = "select ${columns} from ${table} where status = false order by id asc limit ${limit} offset ${offset}";
+        $query = $this->_query($sql)->fetchAll();
+        return $query;
+    }
+
+    public function featured($table) {
+        $sql = "select * from ${table} order by view desc limit 8";
         $query = $this->_query($sql)->fetchAll();
         return $query;
     }
@@ -26,6 +40,13 @@ class Model extends Database
     {
         $sql = "select * from ${table} where username = '$username' limit 1";
         $query = $this->_query($sql)->fetch(PDO::FETCH_ASSOC);
+        return $query;
+    }
+
+    public function searchByName($table, $name) 
+    {
+        $sql ="select * from ${table} where name like '%$name%'";
+        $query = $this->_query($sql)->fetchAll(PDO::FETCH_ASSOC);
         return $query;
     }
 
@@ -60,6 +81,16 @@ class Model extends Database
         $this->_query($sql);
     }
 
+    public function updateView($table, $id) {
+        $sql = "update ${table} set view = view + 1 where id = ${id}";
+        $this->_query($sql);
+    }
+
+    public function updateQuantity($table, $id, $quantity) {
+        $sql = "update ${table} set quantity = quantity - " . $quantity . " where id = ${id}";
+        $this->_query($sql);
+    }
+
     public function delete($table, $id)
     {
         $sql = "delete from ${table} where id = ${id}";
@@ -72,9 +103,34 @@ class Model extends Database
         return $query;
     }
 
+    function validateUploadFile($file, $uploadPath) {
+        //Kiểm tra xem có vượt quá dung lượng cho phép không?
+        if ($file['size'] > 2 * 1024 * 1024) { //max upload is 2 Mb = 2 * 1024 kb * 1024 bite
+            return false;
+        }
+        //Kiểm tra xem kiểu file có hợp lệ không?
+        $validTypes = array("jpg", "jpeg", "png", "bmp","xls","xlsx","doc","docx");
+        $fileType = substr($file['name'], strrpos($file['name'], ".") + 1);
+        if (!in_array($fileType, $validTypes)) {
+            return false;
+        }
+        //Check xem file đã tồn tại chưa? Nếu tồn tại thì đổi tên
+        $num = 1;
+        $fileName = substr($file['name'], 0, strrpos($file['name'], "."));
+        while (file_exists($uploadPath . '/' . $fileName . '.' . $fileType)) {
+            $fileName = $fileName . "(" . $num . ")";
+            $num++;
+        }
+        $file['name'] = $fileName . '.' . $fileType;
+        return $file;
+    }
+
     private function _query($sql) 
     {
         return $this->pdo->query($sql);
     }
-}    
-?>
+
+    public function _lastInsertId(){
+        return $this->pdo->lastInsertId();
+    }
+}

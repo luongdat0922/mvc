@@ -6,9 +6,9 @@
                     <div id="colorlib-logo"><a href="index.html">Myntra</a></div>
                 </div>
                 <div class="col-sm-5 col-md-3">
-                    <form action="#" class="search-wrap">
+                    <form action="index.php?controller=home&action=search" class="search-wrap" method="post">
                         <div class="form-group">
-                            <input type="search" class="form-control search" placeholder="Search">
+                            <input type="search" name="key" class="form-control search" placeholder="Search">
                             <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
                         </div>
                     </form>
@@ -18,14 +18,11 @@
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li class="has-dropdown">
-                            <a href="men.html">Men</a>
-                        </li>
-                        <li><a href="women.html">Women</a></li>
+                        <li><a href="index.php">Products</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li class="cart"><a href="cart.html"><i class="icon-shopping-cart"></i> Cart [0]</a></li>
-                        <li class="cart"><a href="#"><i class="icon-user"></i></a></li>
+                        <li class="cart"><a href="index.php?controller=home&action=logOut"><i class="icon-user"></i><?= $_SESSION['username'] ?></a></li>
                     </ul>
                 </div>
             </div>

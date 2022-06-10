@@ -61,47 +61,40 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
-                        <form method="post" class="colorlib-form" action="index.php?controller=order&action=checkout">
+                        <form method="post" class="colorlib-form" action="index.php?controller=order&action=checkout&id=<?= $account['id'] ?>">
                             <h2>Checkout</h2>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="fname">First Name</label>
-                                        <input type="text" name="first" id="fname" class="form-control" placeholder="">
+                                        <input type="text" name="first" value="<?= $account['firstname'] ?>" id="fname" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="lname">Last Name</label>
-                                        <input type="text" name="last" id="lname" class="form-control" placeholder="">
+                                        <input type="text" name="last" value="<?= $account['lastname'] ?>" id="lname" class="form-control" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="fname">Address</label>
-                                        <input type="text" name="address" id="address" class="form-control" placeholder="">
+                                        <input type="text" name="address" value="<?= $account['address'] ?>" id="address" class="form-control" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="companyname">City</label>
-                                        <input type="text" name="city" id="towncity" class="form-control" placeholder="">
+                                        <input type="text" name="city" value="<?= $account['city'] ?>" id="towncity" class="form-control" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Phone">Phone</label>
-                                        <input type="text" name="phone" id="zippostalcode" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" id="email" class="form-control" placeholder="">
+                                        <input type="text" name="phone" value="<?= $account['phone'] ?>" id="zippostalcode" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -111,42 +104,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="cart-detail">
-                                    <h2>Cart</h2>
-                                    <ul>
-                                        <li>
-                                            <span>Subtotal</span> <span>$100.00</span>
-                                            <ul>
-                                                <li><span>1 x Product Name</span> <span>$99.00</span></li>
-                                                <li><span>1 x Product Name</span> <span>$78.00</span></li>
-                                            </ul>
-                                        </li>
-                                        <li><span>Shipping</span> <span>$0.00</span></li>
-                                        <li><span>Order Total</span> <span>$180.00</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="w-100"></div>
-
-                            <div class="col-md-12">
-                                <div class="cart-detail">
-                                    <h2>Payment</h2>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio"> Offline</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

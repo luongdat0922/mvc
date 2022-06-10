@@ -7,5 +7,9 @@ class ImageModel extends Model
     {
         return $this->slideShow(self::TABLE, $id);   
     }
+
+    public function addImage($data) {
+        $this->add(self::TABLE, $data);
+    }
 }
 ?>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (isset($_SESSION['username'])) {
+    if ($_SESSION['username'] == 'admin') {
+        header("Location: index.php?controller=admin");
+    } else {
+        header("Location: index.php?controller=home");
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,16 +49,6 @@
                                         </label>
                                     </div>
                                     <a href="#" class="auth-link text-black">Forgot password?</a>
-                                </div>
-                                <div class="mb-2">
-                                    <button type="button" class="btn btn-block btn-google auth-form-btn">
-                                        <h2>GOOGLE</h2>
-                                    </button>
-                                </div>
-                                <div class="mb-2">
-                                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                                        <h2>FACEBOOK</h2>
-                                    </button>
                                 </div>
                                 <div class="text-center mt-4 font-weight-light">
                                     Don't have an account? <a href="index.php?controller=register&action=index" class="text-primary">Create</a>
