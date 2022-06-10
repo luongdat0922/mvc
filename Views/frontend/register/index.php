@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./public/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="./public/vendors/base/vendor.bundle.base.css">
     <link rel="stylesheet" href="./public/css/main.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -41,6 +42,7 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="g-recaptcha" data-sitekey="6LdUjlogAAAAAFxfTbCMuC6aQygDofaiopqh2bjD"></div>
                                 <div class="mt-3">
                                     <input type="submit" name="register" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" value="CREATE ACCOUNT" />
 

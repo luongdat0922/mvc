@@ -80,7 +80,7 @@
                                     <span>Remove</span>
                                 </div>
                             </div>
-                            <?php if(!empty($products)) { foreach ($products as $product) { ?>
+                            <?php $total = 0; if(!empty($products)) { foreach ($products as $product) { ?>
                                 <div class="product-cart d-flex">
                                     <div class="one-forth">
                                         <div class="product-img" style="background-image: url(<?= $product['image'] ?>);">
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php } }  ?>
+                            <?php  $total += $product['quantity'] * $product['price']; } }  ?>
                             <div class="row">
                                 <div class="col-sm-10"></div>
                                 <div class="col-sm-2">
@@ -134,24 +134,20 @@
                                 <div class="col-sm-8">
                                     <form action="#">
                                         <div class="row form-group">
-                                            <div class="col-sm-9">
-                                                <input type="text" name="quantity" class="form-control input-number" placeholder="Your Coupon Number...">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <input type="submit" value="Apply Coupon" class="btn btn-primary">
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="col-sm-4 text-center">
                                     <div class="total">
                                         <div class="sub">
-                                            <p><span>Subtotal:</span> <span>$200.00</span></p>
-                                            <p><span>Delivery:</span> <span>$0.00</span></p>
-                                            <p><span>Discount:</span> <span>$45.00</span></p>
+                                            <p><span>Subtotal:</span> <span>$<?= number_format($total, 0) ?></span></p>
+                                            <p><span>Delivery:</span> <span>$<?= number_format(35, 0) ?></span></p>
                                         </div>
                                         <div class="grand-total">
-                                            <p><span><strong>Total:</strong></span> <span>$450.00</span></p>
+                                            <?php
+                                                $_SESSION['total'] = $total - 35;
+                                            ?>
+                                            <p><span><strong>Total:</strong></span> <span>$<?= number_format($total - 35, 0) ?></span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +158,7 @@
                                     <form action="index.php?controller=order" method="post">
                                         <div class="row form-group">
                                             <div class="col-sm-9 col-sm-offset-3">
-                                                <button class="btn btn-primary" style="margin-left: 76px; margin-top: 14px;">Checkout</button>
+                                                <button class="btn btn-primary" style="margin-left: 52px; margin-top: 14px;">Checkout</button>
                                             </div>
                                         </div>
                                     </form>

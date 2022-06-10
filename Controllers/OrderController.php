@@ -5,6 +5,7 @@ class OrderController extends Controller
 
     private $orderModel;
     private $accountModel;
+    private $productModel;
 
     public function __construct()
     {
@@ -12,22 +13,32 @@ class OrderController extends Controller
         $this->orderModel = new OrderModel;
         $this->model('AccountModel');
         $this->accountModel = new AccountModel;
+        $this->model('ProductModel');
+        $this->productModel = new ProductModel;
     }
 
     public function index()
     {
         session_start();
-        return $this->view('frontend.cart.checkout');
+        $username = $_SESSION['username'];
+        $account = $this->accountModel->findByUsername($username);
+
+        return $this->view('frontend.cart.checkout', 
+        [
+            "account" => $account
+        ]);
     }
 
     public function checkout()
     {
         session_start();
-
+        $id = !empty($_GET['id']) ? $_GET['id'] : null;
+        $total = !empty($_SESSION['total']) ? $_SESSION['total'] : null;
         if (!empty($_SESSION['cart'])) {
             $order = [
                 'id' => rand(100, 100000),
-                'accounts_id' => 1,
+                'accounts_id' => $id,
+                'total' => $total,
             ];
             $this->orderModel->createOrder($order);
             foreach ($_SESSION['cart'] as $product) {
@@ -37,9 +48,11 @@ class OrderController extends Controller
                     'quantity' => $product['quantity'],
                     'price' => $product['price'],
                 ]);
+                $this->productModel->subQuantity($product['id'], $product['quantity']);
             }
             unset($_SESSION['cart']);
-            header('location: index.php?controller=cart&action=complete');
+            unset($_SESSION['total']);
+            header('location: index.php?controller=order&action=complete');
         }
     }
 
@@ -47,4 +60,5 @@ class OrderController extends Controller
     {
         return $this->view('frontend.cart.complete');
     }
+    
 }

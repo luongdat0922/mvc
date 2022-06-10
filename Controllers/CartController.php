@@ -13,7 +13,6 @@ class CartController extends Controller
     {
         session_start();
         $products = isset($_SESSION['cart']) ? $_SESSION['cart'] :[];
-
         $this->view(
             'frontend.cart.index',
             [
@@ -28,10 +27,10 @@ class CartController extends Controller
         $product = $this->productModel->searchProduct($id);
         session_start();
         if (empty($_SESSION['cart']) || !array_key_exists($id, $_SESSION['cart'])) {
-            $product['quantity'] = 1;
+            $product['quantity'] = $_POST['quantity'][$id];
             $_SESSION['cart'][$id] = $product;
         } else {
-            $product['quantity'] = $_SESSION['cart'][$id]['quantity'] + 1;
+            $product['quantity'] = $_SESSION['cart'][$id]['quantity'] + $_POST['quantity'][$id];
             $_SESSION['cart'][$id] = $product;
         }
         header('location: index.php?controller=cart');
@@ -60,4 +59,6 @@ class CartController extends Controller
         unset($_SESSION['cart'][$id]);
         header('location: index.php?controller=cart');
     }
+
+
 }

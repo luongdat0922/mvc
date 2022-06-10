@@ -20,6 +20,8 @@ class Database {
             } catch (PDOException $e) {
                 echo 'pdo is failed to connect: '.$e->getMessage();
             }
-        }
+
+            
+    }
 }
 ?>
